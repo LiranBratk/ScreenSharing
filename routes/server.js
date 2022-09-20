@@ -11,7 +11,7 @@ module.exports = router = function (app) {
     // const io = socketio(server);
 
     const { Server } = require('socket.io');
-    const io = new Server((Number(process.env.PORT) + 1) || 80);
+    const io = new Server((Number(process.env.PORT) + 1) || 3001);
     let connectedUsers = [];
     let user_name = [];
 
@@ -55,8 +55,11 @@ module.exports = router = function (app) {
         });
     });
 
+
     app.get('/server', function (req, res, next) {
-        res.render('server');
+        res.render('server', {
+            wsPort: (Number(process.env.PORT) + 1)
+        });
     });
 
 }

@@ -1,17 +1,7 @@
-/* const Peer = window.SimplePeer;
-
-document.getElementById("createPeer").onclick = () => {
-    var peer = new Peer() //Receiver
-    console.log(peer)
-
-    peer.on('signal', data => {
-        console.log(`Succeed ${new Date().getTime()}`)
-    })
-
-} */
-
 // Map All HTML Elements
 const videoGrid = document.getElementById('video-grid');
+const wsPort = document.currentScript.getAttribute('wsPort') == "NaN" ? 3001 : document.currentScript.getAttribute('wsPort')
+
 // const localVideo = document.getElementById('local-video');
 // const remoteVideo = document.getElementById('remote-video');
 
@@ -22,7 +12,7 @@ const logMessage = (message) => {
 };
 
 
-const socket = io(`${window.location.protocol}//${window.location.hostname}:${(Number(process.env.PORT) + 1) || 80}`);
+const socket = io(`${window.location.protocol}//${window.location.hostname}:${wsPort}`);
 let localConnection;
 let remoteConnection;
 let localChannel;
