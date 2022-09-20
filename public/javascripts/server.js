@@ -12,7 +12,7 @@ const logMessage = (message) => {
 };
 
 
-const socket = io(`${window.location.protocol}//${window.location.hostname}:${wsPort}`);
+const socket = io(process.env.wsLink || `${window.location.protocol}//${window.location.hostname}:${wsPort}`);
 let localConnection;
 let remoteConnection;
 let localChannel;
