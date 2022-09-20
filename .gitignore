@@ -1,5 +1,12 @@
 client/node_modules/
 server/node_modules/
+currentMain/node_modules/
+example/Receiver/node_modules/
+example/Transmitter/node_modules/
+
+example/
+server/
+client/
 
 .env
 *.scss
