@@ -10,6 +10,8 @@ module.exports = router = function (app) {
     // const server = require('http').Server(app);
     // const io = socketio(server);
 
+    console.log("WS starting on " + ((Number(process.env.PORT) + 1) || 3001))
+
     const { Server } = require('socket.io');
     const io = new Server((Number(process.env.PORT) + 1) || 3001);
     let connectedUsers = [];
@@ -54,7 +56,6 @@ module.exports = router = function (app) {
             connectedUsers = connectedUsers.filter(socketId => socketId !== socket.id);
         });
     });
-
 
     app.get('/server', function (req, res, next) {
         res.render('server', {
