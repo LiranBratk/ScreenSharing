@@ -9,11 +9,11 @@ const cors = require('cors');
 
 require('dotenv').config()
 const app = express()
+let http = require('http').createServer(app);
+let io = require('socket.io')(http);
 
 const indexRouter = require('./routes/app');
 const clientRouter = require('./routes/client');
-/*const serverRouter = */
-
 
 app.use(session({
     secret: "aflhfajkhfjkashfsajhkfasjk",
@@ -32,7 +32,6 @@ app.set('view engine', 'ejs');
 
 app.use('/', indexRouter);
 app.use('/client', clientRouter);
-// app.use('/server', serverRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -48,6 +47,49 @@ app.use(function (err, req, res, next) {
     // render the error page
     res.status(err.status || 500);
     res.render('error');
+});
+
+let connectedUsers = [];
+let user_name = [];
+
+io.on('connection', (socket) => {
+    // It's necessary to socket knows all clients connected
+    connectedUsers.push(socket.id);
+
+    // Emit to myself the other users connected array to start a connection with each them
+    console.log(connectedUsers.join(', '), socket.id);
+    let adminSocket = connectedUsers[0]
+    const otherUsers = (adminSocket == socket.id) ? [] : [adminSocket] //connectedUsers.filter(socketId => socketId !== socket.id);
+    socket.emit('other-users', otherUsers);
+
+    // Send Offer To Start Connection
+    socket.on('appendname', (adminSocket, name) => {
+        user_name.push(name)
+        let socketID = connectedUsers[connectedUsers.length - 1];
+        console.log(connectedUsers[connectedUsers.length - 1], user_name[user_name.length - 1])
+        socket.to(adminSocket).emit("appendname", socketID, name)
+    });
+
+    // Send Offer To Start Connection
+    socket.on('offer', (socketId, description) => {
+        socket.to(socketId).emit('offer', socket.id, description, socketId);
+    });
+
+    // Send Answer From Offer Request
+    socket.on('answer', (socketId, description) => {
+        socket.to(socketId).emit('answer', description);
+    });
+
+    // Send Signals to Establish the Communication Channel
+    socket.on('candidate', (socketId, candidate) => {
+        socket.to(socketId).emit('candidate', candidate);
+    });
+
+    // Remove client when socket is disconnected
+    socket.on('disconnect', () => {
+        socket.to(adminSocket).emit("destroyed", socket.id)
+        connectedUsers = connectedUsers.filter(socketId => socketId !== socket.id);
+    });
 });
 
 app.listen(process.env.PORT || 3000, function () {
