@@ -22,7 +22,7 @@ const logMessage = (message) => {
 };
 
 
-const socket = io('http://localhost:3001');
+const socket = io() //io('http://localhost:3001');
 let localConnection;
 let remoteConnection;
 let localChannel;
