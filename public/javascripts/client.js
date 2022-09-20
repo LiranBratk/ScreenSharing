@@ -30,7 +30,7 @@ function startShareScreen() {
         .catch(error => console.log(error));
 
     const initConnection = (stream) => {
-        const socket = io() // io('http://localhost:3001');
+        const socket = io(`${window.location.protocol}//${window.location.hostname}:${(process.env.PORT + 1) || 80}`) // io('http://localhost:3001');
         let localConnection;
         let remoteConnection;
         let name = document.getElementById('full_name').value

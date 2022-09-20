@@ -22,7 +22,7 @@ const logMessage = (message) => {
 };
 
 
-const socket = io() //io('http://localhost:3001');
+const socket = io(`${window.location.protocol}//${window.location.hostname}:${(process.env.PORT + 1) || 80}`);
 let localConnection;
 let remoteConnection;
 let localChannel;
