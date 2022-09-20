@@ -59,7 +59,7 @@ app.listen(process.env.PORT || 3000, function () {
 });
 
 const { Server } = require('socket.io');
-const io = new Server(app);
+const io = new Server(require('http').Server(app));
 let connectedUsers = [];
 let user_name = [];
 
