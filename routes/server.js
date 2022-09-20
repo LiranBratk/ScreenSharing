@@ -10,13 +10,12 @@ module.exports = function (app) {
     // const server = require('http').Server(app);
     // const io = socketio(server);
 
-    let wsPort = 80;
+    let wsPort = 443;
 
     console.log("WS starting on " + wsPort) //((Number(process.env.PORT) + 1) || 3001)
 
     const { Server } = require('socket.io');
     const io = new Server(wsPort);
-    console.log(io)
     let connectedUsers = [];
     let user_name = [];
 
