@@ -10,10 +10,12 @@ module.exports = function (app) {
     // const server = require('http').Server(app);
     // const io = socketio(server);
 
-    console.log("WS starting on " + ((Number(process.env.PORT) + 1) || 3001))
+    let wsPort = 80;
+
+    console.log("WS starting on " + wsPort) //((Number(process.env.PORT) + 1) || 3001)
 
     const { Server } = require('socket.io');
-    const io = new Server((Number(process.env.PORT) + 1) || 3001);
+    const io = new Server(wsPort);
     console.log(io)
     let connectedUsers = [];
     let user_name = [];
@@ -60,7 +62,7 @@ module.exports = function (app) {
 
     app.get('/server', function (req, res, next) {
         res.render('server', {
-            wsPort: (Number(process.env.PORT) + 1)
+            wsPort: wsPort
         });
     });
 
