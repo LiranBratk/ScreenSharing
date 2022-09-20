@@ -61,7 +61,8 @@ module.exports = function (app) {
 
     app.get('/server', function (req, res, next) {
         res.render('server', {
-            wsPort: wsPort
+            wsPort: wsPort,
+            wsLink: process.env.wsLink
         });
     });
 

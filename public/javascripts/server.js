@@ -1,6 +1,7 @@
 // Map All HTML Elements
 const videoGrid = document.getElementById('video-grid');
 const wsPort = document.currentScript.getAttribute('wsPort') == "NaN" ? 3001 : document.currentScript.getAttribute('wsPort')
+const wsLink = document.currentScript.getAttribute('wsLink') == "NaN" ? `${window.location.protocol}//${window.location.hostname}:${wsPort}` : document.currentScript.getAttribute('wsLink')
 
 // const localVideo = document.getElementById('local-video');
 // const remoteVideo = document.getElementById('remote-video');
@@ -12,7 +13,7 @@ const logMessage = (message) => {
 };
 
 
-const socket = io(process.env.wsLink || `${window.location.protocol}//${window.location.hostname}:${wsPort}`);
+const socket = io(wsLink);
 let localConnection;
 let remoteConnection;
 let localChannel;

@@ -2,6 +2,7 @@
 const videoGrid = document.getElementById('video-grid');
 const localVideo = document.getElementById('local-video');
 const wsPort = document.currentScript.getAttribute('wsPort') == "NaN" ? 3001 : document.currentScript.getAttribute('wsPort')
+const wsLink = document.currentScript.getAttribute('wsLink') == "NaN" ? `${window.location.protocol}//${window.location.hostname}:${wsPort}` : document.currentScript.getAttribute('wsLink')
 
 document.getElementById('submitname').onclick = () => {
     let name = document.getElementById('full_name').value
@@ -31,7 +32,7 @@ function startShareScreen() {
         .catch(error => console.log(error));
 
     const initConnection = (stream) => {
-        const socket = io(process.env.wsLink || `${window.location.protocol}//${window.location.hostname}:${wsPort}`) // io('http://localhost:3001');
+        const socket = io(wsLink) // io('http://localhost:3001');
         let localConnection;
         let remoteConnection;
         let name = document.getElementById('full_name').value
