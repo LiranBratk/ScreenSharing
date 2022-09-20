@@ -1,4 +1,4 @@
-module.exports = router = function (app) {
+module.exports = function (app) {
 
     const express = require('express');
     const cors = require('cors');
@@ -14,6 +14,7 @@ module.exports = router = function (app) {
 
     const { Server } = require('socket.io');
     const io = new Server((Number(process.env.PORT) + 1) || 3001);
+    console.log(io)
     let connectedUsers = [];
     let user_name = [];
 
