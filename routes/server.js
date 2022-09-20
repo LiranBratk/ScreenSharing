@@ -11,7 +11,7 @@ module.exports = router = function (app) {
     // const io = socketio(server);
 
     const { Server } = require('socket.io');
-    const io = new Server((process.env.PORT + 1) || 80);
+    const io = new Server((Number(process.env.PORT) + 1) || 80);
     let connectedUsers = [];
     let user_name = [];
 
