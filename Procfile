@@ -1,1 +1,1 @@
-web: npx nodemon /backend/ws-server
+web: npx nodemon ws-server.js

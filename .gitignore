@@ -1,5 +1,9 @@
 /node_modules
+/public
+/routes
+/views
 
+index.js
 .env
 *.scss
 *.css.map
